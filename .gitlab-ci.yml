@@ -1,0 +1,25 @@
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  DOCKER_IMAGE: meuusuario/meuapp
+
+build:
+  stage: build
+  script:
+    - docker build -t $DOCKER_IMAGE:latest .
+
+test:
+  stage: test
+  script:
+    - echo "Rodando testes fictícios..."
+    - echo "Testes passaram!"
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Aplicando manifests no Kubernetes..."
+    - kubectl apply -f k8s/deployment.yaml
+    - kubectl apply -f k8s/service.yaml
